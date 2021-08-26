@@ -27,6 +27,8 @@ using vb  = vector<bool>;
 using vvi = vector<vi>;
 using vvl = vector<vl>;
 
+#define PI acosl(-1)
+
 const int MOD = 1e9 + 7;
 // const int MOD = 998244353;
 const int INF = 1e9 + 7;
