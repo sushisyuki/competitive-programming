@@ -35,6 +35,38 @@ const ll  INFL = 1e18;
 template<class T> bool chmax(T &a, const T &b) { if(a < b) { a = b; return true; } return false; }
 template<class T> bool chmin(T &a, const T &b) { if(a > b) { a = b; return true; } return false; }
 
+vvl modmul(const vvl &a, const vvl &b)
+{
+    vvl t(a.size(), vl(b[0].size(), 0));
+    REP(i, (int)a.size())
+    {
+        REP(j, (int)b[0].size())
+        {
+            ll s = 0;
+            REP(k, (int)a[0].size())
+            {
+                s += (a[i][k] * b[k][j]) % MOD;
+            }
+            t[i][j] = s % MOD;
+        }
+    }
+    return t;
+}
+
+vvl modpow(const vvl &m, ll n)
+{
+    vvl a = vvl(m);
+    vvl ret(m.size(), vl(m[0].size(), 0));
+    REP(i, (int)m.size()) ret[i][i] = 1;
+    while(n > 0)   
+    {
+        if(n & 1) ret = modmul(ret, a);
+        a = modmul(a, a);
+        n >>= 1;
+    }
+    return ret;
+}
+
 int main()
 {
     cin.tie(0);
@@ -43,18 +75,16 @@ int main()
 
     ll N, B, K; cin >> N >> B >> K;
     vl c(K); REP(i, K) cin >> c[i];
-    vvl dp(N, vl(B, 0));
-    REP(k, K) dp[0][c[k]%B]++;
-    REP(i, N-1)
+    vvl m(B, vl(B, 0));
+    REP(i, B) REP(k, K) m[(i*10+c[k])%B][i]++;
+    m = modpow(m, N-1);
+    vl b(B, 0); REP(k, K) b[c[k]%B]++;
+    vl ans(B, 0);
+    REP(i, B)
     {
-        REP(j, B)
-        {
-            REP(k, K)
-            {
-                dp[i+1][(10*j+c[k])%B] += dp[i][j];
-                dp[i+1][(10*j+c[k])%B] %= MOD;
-            }
-        }
+        ll s = 0;
+        REP(j, B) s += (m[i][j] * b[j]) % MOD;
+        ans[i] = s % MOD;
     }
-    cout << dp[N-1][0] << endl;
+    cout << ans[0] << endl;
 }
