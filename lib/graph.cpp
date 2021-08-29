@@ -116,7 +116,7 @@ public:
      * @brief 強連結成分分解 O( |V|+|E| )
      * @return res 各頂点が属す強連結成分
      */
-    void scc()
+    vector<int> scc()
     {
         int cnt = 0;
         vector<bool> visited(node_n, false);
