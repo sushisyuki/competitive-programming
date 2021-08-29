@@ -31,6 +31,7 @@ const int MOD = 1e9 + 7;
 // const int MOD = 998244353;
 const int INF = 1e9 + 7;
 const ll  INFL = 1e18;
+const double PI = 3.1415926535;
 
 template<class T> bool chmax(T &a, const T &b) { if(a < b) { a = b; return true; } return false; }
 template<class T> bool chmin(T &a, const T &b) { if(a > b) { a = b; return true; } return false; }
